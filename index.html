@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A World Written Around You</title>
+
+<link href="https://fonts.googleapis.com/css2?family=The+Girl+Next+Door&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #f8d5e2, #eeb8cd, #fff0f5);
+    font-family: 'The Girl Next Door', sans-serif;
+}
+
+.container {
+    text-align: center;
+    position: relative;
+}
+
+/* CLOUD ANIMATION */
+
+.cloud-container {
+    position: fixed;
+    top: calc(50% - 190px);
+    left: 0;
+    width: 100vw;
+    height: 170px;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.cloud {
+    position: absolute;
+    height: auto;
+    object-fit: contain;
+    opacity: 0.9;
+    will-change: transform;
+}
+
+/* INDIVIDUAL CLOUD POSITIONS AND ANIMATIONS */
+
+.cloud-1 {
+    width: 220px;
+    top: 10px;
+    left: 0;
+    animation: cloudMoveRight 35s linear infinite;
+    animation-delay: -32s;
+}
+
+.cloud-2 {
+    width: 190px;
+    top: 65px;
+    left: 0;
+    animation: cloudMoveLeft 42s linear infinite;
+    animation-delay: -41s;
+}
+
+.cloud-3 {
+    width: 250px;
+    top: 0;
+    left: 0;
+    animation: cloudMoveRight 32s linear infinite;
+    animation-delay: -46s;
+}
+
+.cloud-4 {
+    width: 210px;
+    top: 85px;
+    left: 0;
+    animation: cloudMoveLeft 35s linear infinite;
+    animation-delay: -38s;
+}
+
+.cloud-5 {
+    width: 235px;
+    top: 25px;
+    left: 0;
+    animation: cloudMoveRight 42s linear infinite;
+    animation-delay: -35s;
+}
+
+.cloud-6 {
+    width: 185px;
+    top: 95px;
+    left: 0;
+    animation: cloudMoveLeft 37s linear infinite;
+    animation-delay: -32s;
+}
+
+/* CLOUD MOVEMENT KEYFRAMES */
+
+@keyframes cloudMoveRight {
+    0% {
+        transform: translateX(-280px);
+    }
+
+    100% {
+        transform: translateX(calc(100vw + 280px));
+    }
+}
+
+@keyframes cloudMoveLeft {
+    0% {
+        transform: translateX(calc(100vw + 280px));
+    }
+
+    100% {
+        transform: translateX(-280px);
+    }
+}
+
+/* GAME TITLE TYPEWRITER EFFECT */
+
+h1 {
+    font-family: 'The Girl Next Door', sans-serif;
+    font-size: 42px;
+    color: #369bd8;
+    margin-bottom: 20px;
+    min-height: 1.3em;
+    position: relative;
+    z-index: 1;
+}
+
+.cursor {
+    display: inline-block;
+    margin-left: 2px;
+    animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+}
+
+.start-button {
+    font-family: 'The Girl Next Door', sans-serif;
+    font-size: 30px;
+    color: #14374c;
+    background: transparent;
+    border: 0px solid #d9efff;
+    border-radius: 30px;
+    padding: 12px 35px;
+    cursor: pointer;
+    animation: fade 2s ease-in-out infinite;
+    transition: transform 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.start-button:hover {
+    transform: scale(1.08);
+}
+
+@keyframes fade {
+    0%, 100% {
+        opacity: 0.35;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+/* CHAPTER SELECTION PAGE */
+
+#chapterPage {
+    display: none;
+    width: 100%;
+    max-width: 650px;
+    padding: 25px;
+    text-align: center;
+}
+
+.chapter-title {
+    font-family: 'The Girl Next Door', sans-serif;
+    font-size: 38px;
+    color: #369bd8;
+    margin-bottom: 25px;
+}
+
+.chapter-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    width: 100%;
+}
+
+.chapter-box {
+    aspect-ratio: 1 / 1;
+    background: #c94f7c;
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    font-family: 'The Girl Next Door', sans-serif;
+    font-size: 17px;
+    cursor: pointer;
+    transition: transform 0.3s ease, background 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+}
+
+.chapter-box:hover {
+    transform: scale(1.06);
+    background: #b83f6c;
+}
+
+/* CHAPTER INTRODUCTION TRANSITION */
+
+#chapterIntro {
+    display: none;
+    position: fixed;
+    inset: 0;
+    text-align: center;
+    opacity: 0;
+}
+
+#chapterIntro h1 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    font-family: 'The Girl Next Door', sans-serif;
+    font-size: 48px;
+    color: #369bd8;
+    margin: 0;
+}
+
+#chapterIntro.show {
+    animation: chapterFade 4s ease forwards;
+}
+
+@keyframes chapterFade {
+    0% {
+        opacity: 0;
+    }
+    25% {
+        opacity: 1;
+    }
+    75% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+/* INDIVIDUAL CHAPTER PAGES */
+
+.chapter-content {
+    display: none;
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* CHAPTER BACK BUTTON */
+
+.chapter-back-button {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    font-family: 'The Girl Next Door', sans-serif;
+    font-size: 22px;
+    color: #14374c;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+/* CHAPTER WRITING AREA */
+
+.chapter-text {
+    font-family: 'The Girl Next Door', sans-serif;
+    font-size: 22px;
+    color: #14374c;
+    padding: 80px 35px 100px;
+    white-space: pre-wrap;
+    opacity: 1;
+    transition: opacity 0.7s ease;
+}
+
+.chapter-text.fade-out {
+    opacity: 0;
+}
+
+/* CHAPTER PREVIOUS AND NEXT BUTTONS */
+
+.chapter-navigation-button {
+    position: absolute;
+    bottom: 25px;
+    font-family: 'The Girl Next Door', sans-serif;
+    font-size: 22px;
+    color: #14374c;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.chapter-navigation-button:hover {
+    transform: scale(1.08);
+}
+
+.chapter-navigation-button:disabled {
+    opacity: 0.4;
+    cursor: default;
+}
+
+.chapter-previous-button {
+    left: 35px;
+}
+
+.chapter-next-button {
+    right: 35px;
+}
+
+/* MOBILE LAYOUT */
+
+@media (max-width: 500px) {
+    #chapterPage {
+        padding: 15px;
+    }
+
+    .chapter-grid {
+        gap: 10px;
+    }
+
+    .chapter-box {
+        font-size: 13px;
+    }
+
+    .chapter-title {
+        font-size: 30px;
+    }
+
+    #chapterIntro h1 {
+        font-size: 36px;
+    }
+
+    .cloud-container {
+        top: calc(50% - 155px);
+        width: 100vw;
+        height: 140px;
+    }
+
+    .cloud-1 {
+        width: 160px;
+    }
+
+    .cloud-2 {
+        width: 135px;
+    }
+
+    .cloud-3 {
+        width: 180px;
+    }
+
+    .cloud-4 {
+        width: 145px;
+    }
+
+    .cloud-5 {
+        width: 170px;
+    }
+
+    .cloud-6 {
+        width: 130px;
+    }
+
+    .chapter-navigation-button {
+        font-size: 19px;
+        bottom: 20px;
+    }
+
+    .chapter-previous-button {
+        left: 20px;
+    }
+
+    .chapter-next-button {
+        right: 20px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- OPENING PAGE -->
+
+<div class="container" id="homePage">
+
+    <div class="cloud-container">
+
+        <img src="cloud.png" class="cloud cloud-1" alt="">
+        <img src="cloud.png" class="cloud cloud-2" alt="">
+        <img src="cloud.png" class="cloud cloud-3" alt="">
+        <img src="cloud.png" class="cloud cloud-4" alt="">
+        <img src="cloud.png" class="cloud cloud-5" alt="">
+        <img src="cloud.png" class="cloud cloud-6" alt="">
+
+    </div>
+
+    <h1>
+        <span id="gameTitle"></span><span class="cursor">|</span>
+    </h1>
+
+    <button class="start-button" id="startButton">
+        Take a look?
+    </button>
+</div>
+
+
+<!-- CHAPTER SELECTION PAGE -->
+
+<div id="chapterPage">
+
+    <h1 class="chapter-title">Chapters</h1>
+
+    <div class="chapter-grid">
+
+        <button class="chapter-box" data-chapter="1" data-transition-title="First Meet">Chapter 1</button>
+        <button class="chapter-box" data-chapter="2" data-transition-title="Little Updates">Chapter 2</button>
+        <button class="chapter-box" data-chapter="3" data-transition-title="A bit closer">Chapter 3</button>
+        <button class="chapter-box" data-chapter="4" data-transition-title="Chapter 4">Chapter 4</button>
+
+        <button class="chapter-box" data-chapter="5" data-transition-title="Chapter 5">Chapter 5</button>
+        <button class="chapter-box" data-chapter="6" data-transition-title="Chapter 6">Chapter 6</button>
+        <button class="chapter-box" data-chapter="7" data-transition-title="Chapter 7">Chapter 7</button>
+        <button class="chapter-box" data-chapter="8" data-transition-title="Chapter 8">Chapter 8</button>
+
+        <button class="chapter-box" data-chapter="9" data-transition-title="Chapter 9">Chapter 9</button>
+        <button class="chapter-box" data-chapter="10" data-transition-title="Chapter 10">Chapter 10</button>
+        <button class="chapter-box" data-chapter="11" data-transition-title="Chapter 11">Chapter 11</button>
+        <button class="chapter-box" data-chapter="12" data-transition-title="Chapter 12">Chapter 12</button>
+
+        <button class="chapter-box" data-chapter="13" data-transition-title="Chapter 13">Chapter 13</button>
+        <button class="chapter-box" data-chapter="14" data-transition-title="Chapter 14">Chapter 14</button>
+        <button class="chapter-box" data-chapter="15" data-transition-title="Chapter 15">Chapter 15</button>
+        <button class="chapter-box" data-chapter="16" data-transition-title="Chapter 16">Chapter 16</button>
+
+    </div>
+
+</div>
+
+
+<!-- CHAPTER INTRODUCTION SCREEN -->
+
+<div id="chapterIntro">
+    <h1 id="chapterIntroTitle"></h1>
+</div>
+
+
+<!-- INDIVIDUAL CHAPTER PAGES -->
+
+<!-- CHAPTER 1 -->
+<div id="chapter1Content" class="chapter-content">
+    <button class="chapter-back-button chapterBackButton">Back</button>
+
+    <div class="chapter-text" data-chapter-text>
+        When I first met you through a mutual friend, I didn't really think much of it.  
+Meeting a friend of a friend wasn't anything unusual for me.  
+We only exchanged a few small talks, things like "How are you?" and "What are your interests?"  
+After that, neither of us really thought much about it.  
+August and September passed, and we barely communicated.  
+Then October came.
+
+You wanted to be mutuals on TikTok, and I accepted.  
+We reconnected and suddenly had even more things to talk about.  
+We started sending each other funny and silly videos, reacting to them with the same energy.  
+Little by little, we grew closer, going from distant friends to people who could consider each other close.
+    </div>
+
+    <button class="chapter-navigation-button chapter-next-button">Next →</button>
+</div>
+
+<!-- CHAPTER 2 -->
+<div id="chapter2Content" class="chapter-content">
+    <button class="chapter-back-button chapterBackButton">Back</button>
+
+    <div class="chapter-text" data-chapter-text>
+        By the middle of October, while we were both caught up in our academic lives,  
+we still made an effort to check up on each other, making sure we were both doing alright.  
+Perhaps that was our subtle way of showing that we wanted to know each other on a deeper level.  
+Even during our busiest weeks, we never failed to bring each other a little encouragement.  
+I still remember how kind and cheerful you always were whenever we talked.
+
+It made me genuinely happy to have someone who cared enough to check up on me.  
+Someone who paid attention to even the smallest things I did.  
+You became a kind and wonderful light in my life, bringing me a warmth I didn't know I needed.
+    </div>
+
+    <button class="chapter-navigation-button chapter-previous-button">← Previous</button>
+    <button class="chapter-navigation-button chapter-next-button">Next →</button>
+</div>
+
+<!-- CHAPTER 3 -->
+<div id="chapter3Content" class="chapter-content">
+    <button class="chapter-back-button chapterBackButton">Back</button>
+
+    <div class="chapter-text" data-chapter-text>
+        To unwind, we decided to spend some of our free time playing games together.  
+You invited me to a call so we could communicate better ingame, and I gladly accepted.  
+Hearing your lovely and sweet voice for the first time made me giggle so much.  
+I had such a wonderful time talking with you, even though I wasn't someone who talked much.
+
+We slowly grew closer, asking more about each other and sharing our likes and dislikes.  
+I got to learn more about you, like how much you love sweets and how you can't handle spicy foods.  
+I even wrote all of those little details down on my old phone, keeping track of the precious little things that make you, you.
+    </div>
+
+    <button class="chapter-navigation-button chapter-previous-button">← Previous</button>
+    <button class="chapter-navigation-button chapter-next-button">Next →</button>
+</div>
+
+<!-- CHAPTER 4 -->
+<div id="chapter4Content" class="chapter-content">
+    <button class="chapter-back-button chapterBackButton">Back</button>
+    <div class="chapter-text" data-chapter-text>
+        <!-- WRITE CHAPTER 4 CONTENT HERE -->
+    </div>
+    <button class="chapter-navigation-button chapter-previous-button">← Previous</button>
+    <button class="chapter-navigation-button chapter-next-button">Next →</button>
+</div>
+
+<!-- CHAPTER 5 -->
+<div id="chapter5Content" class="chapter-content">
+    <button class="chapter-back-button chapterBackButton">Back</button>
+    <div class="chapter-text" data-chapter-text>
+        <!-- WRITE CHAPTER 5 CONTENT HERE -->
+    </div>
+    <button class="chapter-navigation-button chapter-previous-button">← Previous</button>
+    <button class="chapter-navigation-button chapter-next-button">Next →</button>
+</div>
+
+<!-- CHAPTER 6 -->
+<div id="chapter6Content" class="chapter-content">
+    <button class="chapter-back-button chapterBackButton">Back</button>
+    <div class="chapter-text" data-chapter-text>
+        <!-- WRITE CHAPTER 6 CONTENT HERE -->
+    </div>
+    <button class="chapter-navigation-button chapter-previous-button">← Previous</button>
+    <button class="chapter-navigation-button chapter-next-button">Next →</button>
+</div>
+
+<!-- CHAPTER 7 -->
+<div id="chapter7Content" class="chapter-content">
+    <button class="chapter-back-button chapterBackButton">Back</button>
+    <div class="chapter-text" data-chapter-text>
+        <!-- WRITE CHAPTER 7 CONTENT HERE -->
+    </div>
+    <button class="chapter-navigation-button chapter-previous-button">← Previous</button>
+    <button class="chapter-navigation-button chapter-next-button">Next →</button>
+</div>
+
+<!-- CHAPTER 8 -->
+<div id="chapter8Content" class="chapter-content">
+    <button class="chapter-back-button chapterBackButton">Back</button>
+    <div class="chapter-text" data-chapter-text>
+        <!-- WRITE CHAPTER 8 CONTENT HERE -->
+    </div>
+    <button class="chapter-navigation-button chapter-previous-button">← Previous</button>
+    <button class="chapter-navigation-button chapter-next-button">Next →</button>
+</div>
+
+<!-- CHAPTER 9 -->
+<div id="chapter9Content" class="chapter-content">
+    <button class="chapter-back-button chapterBackButton">Back</button>
+    <div class="chapter-text" data-chapter-text>
+        <!-- WRITE CHAPTER 9 CONTENT HERE -->
+    </div>
+    <button class="chapter-navigation-button chapter-previous-button">← Previous</button>
+    <button class="chapter-navigation-button chapter-next-button">Next →</button>
+</div>
+
+<!-- CHAPTER 10 -->
+<div id="chapter10Content" class="chapter-content">
+    <button class="chapter-back-button chapterBackButton">Back</button>
+    <div class="chapter-text" data-chapter-text>
+        <!-- WRITE CHAPTER 10 CONTENT HERE -->
+    </div>
+    <button class="chapter-navigation-button chapter-previous-button">← Previous</button>
+    <button class="chapter-navigation-button chapter-next-button">Next →</button>
+</div>
+
+<!-- CHAPTER 11 -->
+<div id="chapter11Content" class="chapter-content">
+    <button class="chapter-back-button chapterBackButton">Back</button>
+    <div class="chapter-text" data-chapter-text>
+        <!-- WRITE CHAPTER 11 CONTENT HERE -->
+    </div>
+    <button class="chapter-navigation-button chapter-previous-button">← Previous</button>
+    <button class="chapter-navigation-button chapter-next-button">Next →</button>
+</div>
+
+<!-- CHAPTER 12 -->
+<div id="chapter12Content" class="chapter-content">
+    <button class="chapter-back-button chapterBackButton">Back</button>
+    <div class="chapter-text" data-chapter-text>
+        <!-- WRITE CHAPTER 12 CONTENT HERE -->
+    </div>
+    <button class="chapter-navigation-button chapter-previous-button">← Previous</button>
+    <button class="chapter-navigation-button chapter-next-button">Next →</button>
+</div>
+
+<!-- CHAPTER 13 -->
+<div id="chapter13Content" class="chapter-content">
+    <button class="chapter-back-button chapterBackButton">Back</button>
+    <div class="chapter-text" data-chapter-text>
+        <!-- WRITE CHAPTER 13 CONTENT HERE -->
+    </div>
+    <button class="chapter-navigation-button chapter-previous-button">← Previous</button>
+    <button class="chapter-navigation-button chapter-next-button">Next →</button>
+</div>
+
+<!-- CHAPTER 14 -->
+<div id="chapter14Content" class="chapter-content">
+    <button class="chapter-back-button chapterBackButton">Back</button>
+    <div class="chapter-text" data-chapter-text>
+        <!-- WRITE CHAPTER 14 CONTENT HERE -->
+    </div>
+    <button class="chapter-navigation-button chapter-previous-button">← Previous</button>
+    <button class="chapter-navigation-button chapter-next-button">Next →</button>
+</div>
+
+<!-- CHAPTER 15 -->
+<div id="chapter15Content" class="chapter-content">
+    <button class="chapter-back-button chapterBackButton">Back</button>
+    <div class="chapter-text" data-chapter-text>
+        <!-- WRITE CHAPTER 15 CONTENT HERE -->
+    </div>
+    <button class="chapter-navigation-button chapter-previous-button">← Previous</button>
+    <button class="chapter-navigation-button chapter-next-button">Next →</button>
+</div>
+
+<!-- CHAPTER 16 -->
+<div id="chapter16Content" class="chapter-content">
+    <button class="chapter-back-button chapterBackButton">Back</button>
+    <div class="chapter-text" data-chapter-text>
+        <!-- WRITE CHAPTER 16 CONTENT HERE -->
+    </div>
+    <button class="chapter-navigation-button chapter-previous-button">← Previous</button>
+</div>
+
+
+<!-- EXTERNAL JAVASCRIPT FILE -->
+
+<script src="script.js"></script>
+
+</body>
+</html>
