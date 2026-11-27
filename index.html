@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>A World Written Around You</title>
+<title>My Favorite Story Is You</title>
 
 <link href="https://fonts.googleapis.com/css2?family=The+Girl+Next+Door&display=swap" rel="stylesheet">
 
@@ -335,6 +336,16 @@ h1 {
 /* MOBILE LAYOUT */
 
 @media (max-width: 500px) {
+    h1 {
+        font-size: clamp(18px, 6vw, 28px);
+        white-space: nowrap;
+    }
+
+    .start-button {
+        font-size: 24px;
+        padding: 10px 25px;
+    }
+
     #chapterPage {
         padding: 15px;
     }
@@ -344,15 +355,31 @@ h1 {
     }
 
     .chapter-box {
-        font-size: 13px;
+        font-size: clamp(9px, 3vw, 12px);
+        white-space: nowrap;
+        padding: 4px;
     }
 
     .chapter-title {
-        font-size: 30px;
+        font-size: clamp(22px, 7vw, 30px);
+        white-space: nowrap;
     }
 
     #chapterIntro h1 {
-        font-size: 36px;
+        width: calc(100% - 20px);
+        font-size: clamp(16px, 5vw, 28px);
+        white-space: nowrap;
+    }
+
+    .chapter-text {
+        font-size: clamp(15px, 4vw, 18px);
+        padding: 75px 18px 90px;
+    }
+
+    .chapter-back-button {
+        top: 18px;
+        right: 18px;
+        font-size: 19px;
     }
 
     .cloud-container {
