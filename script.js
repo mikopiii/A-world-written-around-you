@@ -15,7 +15,7 @@ bgm.play().catch(function() {
 const startButton = document.getElementById("startButton");
 const gameTitle = document.getElementById("gameTitle");
 
-const titleText = "A World Written Around You";
+const titleText = "365 Days Of Loving You";
 
 let titleIndex = 0;
 let deleting = false;
